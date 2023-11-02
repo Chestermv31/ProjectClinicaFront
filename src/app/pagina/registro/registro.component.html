@@ -1,0 +1,70 @@
+<form #f="ngForm" (ngSubmit)="registrar()">
+    <div>
+        <label>Cédula: </label>
+        <input type="text" name="cedula" [(ngModel)]="detatallePacienteDTO.cedula" />
+    </div>
+    <div>
+        <label>Nombre: </label>
+        <input type="text" name="nombre" [(ngModel)]="detatallePacienteDTO.nombre" />
+    </div>
+    <div>
+        <label>Teléfono: </label>
+        <input type="text" name="telefono" [(ngModel)]="detatallePacienteDTO.telefono" />
+    </div>
+    <div>
+        <label>Foto: </label>
+        <input type="text" name="urlFoto" [(ngModel)]="detatallePacienteDTO.urlFoto" />
+    </div>
+    <div>
+        <label >Foto: </label>
+        <input type="file" required />
+    </div>
+    <div>
+            <label >Imagen: </label>
+            <input type="file" (change)="onFileChange($event)" />
+    </div>
+    <div>
+        <label >Ciudad: </label>
+        <select >
+        <option value="0" selected >Seleccione una ciudad</option>
+        <option value="1" >Armenia</option>
+        <option value="2" >Calarcá</option>
+        <option value="3" >Pereira</option>
+        <option value="4" >Manizales</option>
+        <option value="5" >Medellín</option>
+        </select>
+    </div>
+    <div>
+        <label>Fecha de nacimiento: </label>
+        <input type="date" name="fechaNacimiento"
+        [(ngModel)]="detatallePacienteDTO.fechaNacimiento" />
+    </div>
+    <div>
+        <label>Alergias: </label>
+        <input type="text" name="alergias" [(ngModel)]="detatallePacienteDTO.alergias" />
+    </div>
+    <div>
+        <label>EPS: </label>
+        <input type="text" name="eps" [(ngModel)]="detatallePacienteDTO.eps" />
+    </div>
+    <div>
+        <label>Tipo de sangre: </label>
+        <input type="text" name="tipoSangre" [(ngModel)]="detatallePacienteDTO.tipoSangre" />
+    </div>
+    <div>
+        <label>Correo electrónico: </label>
+        <input type="email" name="correo" [(ngModel)]="detatallePacienteDTO.correo" />
+    </div>
+    <div>
+        <label>Contraseña: </label>
+        <input type="password" name="password" [(ngModel)]="detatallePacienteDTO.password" />
+    </div>
+        <button type="submit" [disabled]="f.invalid || !sonIguales()" >Registrarse</button>
+
+        <div>
+        <label >Repetir contraseña: </label>
+        <input type="password" name="confirmaPassword"
+        [(ngModel)]="detatallePacienteDTO.confirmaPassword" required />
+        <p *ngIf="!sonIguales()" >Las contraseñas no coinciden</p>           
+    </div>
+    </form>
