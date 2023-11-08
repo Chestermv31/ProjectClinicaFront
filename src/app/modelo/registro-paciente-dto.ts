@@ -13,4 +13,5 @@ export class DetallePacienteDTO {
     confirmaPassword:string = "holahola";
     }
 
+  
 

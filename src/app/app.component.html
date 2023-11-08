@@ -1,13 +1,96 @@
-<header>
-  <p>Página inicial de {{title}}</p>
-  <ul>
-  <li><a href="">Inicio</a></li>
-  <li><a href="/login">Login</a></li>
-  <li><a href="/registro">Registro</a></li>
-  </ul>
-  </header>
-  <router-outlet></router-outlet>
-  <footer>
-  
-  <p>Universidad del Quindío - 2023</p>
+<!-- Encabezado -->
+<header class="p-3 text-bg-primary">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <a routerLink="" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <i class="fa-solid fa-stethoscope fs-3"></i>
+        <span class="fs-4 ms-3 me-3">{{title}}</span>
+      </a>
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li><a routerLink="" class="nav-link px-2 text-white">Inicio</a></li>
+        <button type="button" routerLink="/login" class="btn btn-outline-light me-2">Login</button>
+        <button type="button" routerLink="/registro" class="btn btn-success">Sign-up</button>
+        <li><a routerLink="/gestion-medicos" class="nav-link px-2 text-white">Gestión Medicos</a></li>
+        <li><a routerLink="/gestion-pqrs" class="nav-link px-2 text-white">Gestión PQRS</a></li>
+        <li><a routerLink="/gestion-citas" class="nav-link px-2 text-white">Gestión Citas</a></li>
+      </ul>
+      <div class="text-end">
+        
+        
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Contenido de la página -->
+<div class="seccion-pagina p-4">
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+
+
+<!-- Formulario de registro -->
+<div class="card">
+  <div class="card-header ps-5 pt-4 pb-4">
+    <h5 class="mb-0" ><i class="fa-solid fa-user-plus me-3"></i>Registro de un nuevo paciente</h5>
+  </div>
+  <div class="card-body p-5">
+    <form #f="ngForm" (ngSubmit)="registrar()">
+      <!-- Todo lo que va dentro del form -->
+      <!-- Campos del formulario -->
+<div class="mb-3 row">
+  <label class="col-sm-2 col-form-label">Cédula: </label>
+  <div class="col-sm-10">
+    <input #cedula="ngModel"
+      [ngClass]="cedula.invalid && (cedula.dirty || cedula.touched) ? 'is-invalid' : ''" type="text"
+      name="cedula" class="form-control" required [(ngModel)]="detallePacienteDTO.cedula" />
+  </div>
+</div>
+
+<div class="mb-3 row">
+  <label class="col-sm-2 col-form-label">Nombre: </label>
+  <div class="col-sm-10">
+    <input #nombre="ngModel"
+      [ngClass]="nombre.invalid && (nombre.dirty || nombre.touched) ? 'is-invalid' : ''" type="text"
+      name="nombre" class="form-control" required [(ngModel)]="detallePacienteDTO.nombre" />
+  </div>
+</div>
+
+<div class="mb-3 row">
+  <label class="col-sm-2 col-form-label">Foto: </label>
+  <div class="col-sm-10">
+    <input type="file" name="urlFoto" class="form-control" required (change)="onFileChange($event)" />
+  </div>
+</div>
+
+<div class="mb-3 row">
+  <label class="col-sm-2 col-form-label">Ciudad: </label>
+  <div class="col-sm-10">
+    <select name="ciudad" required class="form-select" [(ngModel)]="detallePacienteDTO.ciudad">
+      <option value="" selected>Seleccione una ciudad</option>
+      <option [value]="item" *ngFor="let item of ciudades; index as i">{{item}}</option>
+    </select>
+  </div>
+</div>
+
+<div class="alert alert-danger" role="alert" *ngIf="!sonIguales()">Las contraseñas no coinciden</div>
+
+<button class="btn btn-primary" type="submit" [disabled]="f.invalid || !sonIguales()">
+  <i class="fa-solid fa-circle-plus me-1"></i>Registrarse
+</button>
+    </form>
+  </div>
+</div>
+
+
+
+<!-- Pie de página -->
+<div class="container">
+  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <div class="col-md-4 d-flex align-items-center">
+      <span class="mb-3 mb-md-0 text-muted">&copy; 2023 Universidad del Quindío</span>
+    </div>
   </footer>
+</div>

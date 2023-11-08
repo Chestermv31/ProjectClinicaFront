@@ -1,1 +1,26 @@
-<p>login works!</p>
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card">
+          <div class="card-header">
+            <h3>Iniciar sesión</h3>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="email" formControlName="email" required>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" formControlName="password" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+            </form>
+            <div *ngIf="error" class="alert alert-danger mt-3">Credenciales incorrectas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

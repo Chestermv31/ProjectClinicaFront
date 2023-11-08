@@ -1,0 +1,32 @@
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h1>Gestión de Médicos</h1>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Especialidad</th>
+              <th>Teléfono</th>
+              <th>Email</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let medico of medicos">
+              <td>{{ medico.nombre }}</td>
+              <td>{{ medico.especialidad }}</td>
+              <td>{{ medico.telefono }}</td>
+              <td>{{ medico.email }}</td>
+              <td>
+                <button (click)="addDiaLibre(medico)" class="btn btn-primary">Agregar Día Libre</button>
+                <button (click)="removeDiaLibre(medico)" class="btn btn-danger">Eliminar Día Libre</button>
+                <!-- Agregar botones y acciones para manejar las órdenes de medicamentos según tus necesidades -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

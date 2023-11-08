@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'projectClinica';
+  detallePacienteDTO: any;
+  onFileChange: any;
+  ciudades: any;
+  sonIguales: any;
+  registrar: any;
+ 
+
 }
