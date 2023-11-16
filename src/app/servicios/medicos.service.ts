@@ -1,29 +1,35 @@
 import { Injectable } from '@angular/core';
-import { DiaLibreDTO } from 'src/app/modelo/DiaLibreDTO';
-import { RegistroAtencionDTO } from 'src/app/modelo/RegistroAtencionDTO';
-import { MedicoDTO } from 'src/app/modelo/MedicoDTO';
+import {ItemMedicoDTO} from "../modelo/ItemMedicoDTO";
+import {RegistroMedicoDTO} from "src/app/modelo/RegistroMedicoDTO";
 
 @Injectable({
   providedIn: 'root'
 })
-export class MedicoService {
-  getMedicos(): MedicoDTO[] | undefined {
-    throw new Error('Method not implemented.');
-  }
-  removeDiaLibre(id: number, arg1: Date) {
-    throw new Error('Method not implemented.');
-  }
-  addDiaLibre(id: number, arg1: Date) {
-    throw new Error('Method not implemented.');
-  }
-  medicos: MedicoDTO[] | undefined;
-  removeOrdenMedicamento(pacienteId: number, medicamento: string) {
-    throw new Error('Method not implemented.');
-  }
-  addOrdenMedicamento(pacienteId: number, medicamento: string, cantidad: number) {
-    throw new Error('Method not implemented.');
-  }
+export class MedicosService {
+  medicos: ItemMedicoDTO[];
+  getMedicos: any;
+  addDiaLibre: any;
+  removeDiaLibre: any;
+  addOrdenMedicamento: any;
+  removeOrdenMedicamento: any;
 
+  constructor() {
+    this.medicos = [];
 
-
+    this.medicos.push({codigo: 1, cedula: "1234567890", nombre: "Juan Perez", especialidad: "Medicina General"});
+    this.medicos.push({codigo: 2, cedula: "0987654321", nombre: "Maria Lopez", especialidad: "Medicina General"});
+    this.medicos.push({codigo: 3, cedula: "1231231231", nombre: "Carlos Sanchez", especialidad: "Medicina General"});
+    this.medicos.push({codigo: 4, cedula: "4564564564", nombre: "Ana Martinez", especialidad: "Medicina General"});
+    this.medicos.push({codigo: 5, cedula: "7897897897", nombre: "Pedro Rodriguez", especialidad: "Medicina General"});
+  }
+  public listar(): ItemMedicoDTO[] {
+    return this.medicos;
+  }
+  public obtener(codigo: number): ItemMedicoDTO | undefined{
+    return this.medicos.find(medicos => medicos.codigo == codigo);
+  }
+  public crear(medicos: RegistroMedicoDTO){
+    let codigo = this.medicos.length + 1;
+    this.medicos.push({ codigo: codigo, cedula: medicos.cedula, nombre: medicos.nombre, especialidad: medicos.especialidad});
+  }
 }

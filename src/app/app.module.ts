@@ -17,6 +17,12 @@ import { DetallePqrsComponent } from './pagina/detalle-pqrs/detalle-pqrs.compone
 import { GestionCitasComponent } from './pagina/gestion-citas/gestion-citas.component';
 import { CrearCitaComponent } from './pagina/crear-citas/crear-cita.component';
 import { GestionMedicosComponent } from './pagina/gestion-medicos/gestion-medicos.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { UsuarioInterceptor } from './interceptor/usuario.interceptor';
+import { RegistroMedicosComponent } from './pagina/registro-medicos/registro-medicos.component';
+import { MedicosService } from './servicios/medicos.service';
+
+
 
 @NgModule({
   declarations: [
@@ -29,15 +35,26 @@ import { GestionMedicosComponent } from './pagina/gestion-medicos/gestion-medico
     DetallePqrsComponent,
     GestionCitasComponent,
     CrearCitaComponent,
-    GestionMedicosComponent,
+    RegistroMedicosComponent,
+    GestionMedicosComponent
+    
+    
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    
+
+    
   ],
-  providers: [],
+  providers:[
+    { provide: HTTP_INTERCEPTORS, useClass: UsuarioInterceptor, multi: true }
+  ,MedicosService],
+ 
   bootstrap: [AppComponent]
 })
 export class AppModule { }

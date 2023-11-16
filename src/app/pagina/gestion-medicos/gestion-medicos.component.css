@@ -1,14 +1,23 @@
-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    border: 1px solid black;
-    padding: 10px;
-  }
-  
-  tbody tr:nth-child(even) {
-    background-color: #eee;
-  }
-  
+
+
+.container {
+  margin-top: 20px;
+}
+
+.list-group-item {
+  margin-top: 10px;
+}
+
+.card {
+  margin-top: 20px;
+}
+
+.btn-group {
+  margin-top: 10px;
+}
+
+.card-body {
+  background-color: #f8f9fa;
+}
+
+

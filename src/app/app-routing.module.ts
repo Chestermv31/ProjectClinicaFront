@@ -9,6 +9,9 @@ import { DetallePqrsComponent } from './pagina/detalle-pqrs/detalle-pqrs.compone
 import { GestionCitasComponent } from './pagina/gestion-citas/gestion-citas.component';
 import { CrearCitaComponent } from './pagina/crear-citas/crear-cita.component';
 import { GestionMedicosComponent } from './pagina/gestion-medicos/gestion-medicos.component';
+import { LoginGuard } from './guards/login.guard';
+import { UsuarioGuard } from './guards/usuario.guard';
+
 
 const routes: Routes = [
 { path: "", component: InicioComponent },
@@ -20,12 +23,19 @@ const routes: Routes = [
 { path: "gestion-citas", component: GestionCitasComponent },
 { path: "crear-citas", component: CrearCitaComponent },
 { path: "gestion-medicos", component: GestionMedicosComponent },
-{ path: "**", pathMatch: "full", redirectTo: "" }
+{ path: "login", component: LoginComponent, canActivate: [LoginGuard] },
+{ path: "registro", component: RegistroComponent, canActivate: [LoginGuard] },
+{ path: "admin/gestionar_ciudades", component: GestionCitasComponent, canActivate:
+ [UsuarioGuard], data: { expectedRole: ['ADMIN'] } },
+ { path: "**", pathMatch: "full", redirectTo: "" },
+ 
+
 
 ];
 @NgModule({
 imports: [RouterModule.forRoot(routes)],
-exports: [RouterModule]
+exports: [RouterModule],
+
 })
 export class AppRoutingModule { }
 

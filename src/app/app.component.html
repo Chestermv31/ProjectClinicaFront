@@ -1,96 +1,61 @@
 <!-- Encabezado -->
-<header class="p-3 text-bg-primary">
+<header class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      <a routerLink="" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-        <i class="fa-solid fa-stethoscope fs-3"></i>
-        <span class="fs-4 ms-3 me-3">{{title}}</span>
-      </a>
-      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a routerLink="" class="nav-link px-2 text-white">Inicio</a></li>
-        <button type="button" routerLink="/login" class="btn btn-outline-light me-2">Login</button>
-        <button type="button" routerLink="/registro" class="btn btn-success">Sign-up</button>
-        <li><a routerLink="/gestion-medicos" class="nav-link px-2 text-white">Gestión Medicos</a></li>
-        <li><a routerLink="/gestion-pqrs" class="nav-link px-2 text-white">Gestión PQRS</a></li>
-        <li><a routerLink="/gestion-citas" class="nav-link px-2 text-white">Gestión Citas</a></li>
+    <a class="navbar-brand" href="#">
+      <i class="fas fa-stethoscope"></i>
+      <span class="ms-2">{{ title }}</span>
+    </a>
+
+    <!-- Botón para colapsar en pantallas pequeñas -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Elementos del menú -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/gestion-medicos">Gestión Médicos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/gestion-pqrs">Gestión PQRS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/gestion-citas">Gestión Citas</a>
+        </li>
       </ul>
-      <div class="text-end">
-        
-        
-      </div>
+
+      <!-- Botones de autenticación -->
+      <div *ngIf="!isLogged; then nologged else logged"></div>
+      <ng-template #nologged>
+        <div class="text-algin.right">
+          <button type="button" routerLink="/login" class="btn btn-outline-light me-2">Login</button>
+          <button type="button" routerLink="/registro" class="btn btn-warning">Sign-up</button>
+        </div>
+      </ng-template>
+      <ng-template #logged>
+        <div class="text-end">
+          <label class="me-3">Hola {{ username }}</label>
+          <button type="button" (click)="logout()" class="btn btn-warning">Logout</button>
+        </div>
+      </ng-template>
     </div>
   </div>
 </header>
 
 <!-- Contenido de la página -->
-<div class="seccion-pagina p-4">
+<main class="main-content">
   <div class="container">
     <router-outlet></router-outlet>
   </div>
-</div>
-
-
-
-<!-- Formulario de registro -->
-<div class="card">
-  <div class="card-header ps-5 pt-4 pb-4">
-    <h5 class="mb-0" ><i class="fa-solid fa-user-plus me-3"></i>Registro de un nuevo paciente</h5>
-  </div>
-  <div class="card-body p-5">
-    <form #f="ngForm" (ngSubmit)="registrar()">
-      <!-- Todo lo que va dentro del form -->
-      <!-- Campos del formulario -->
-<div class="mb-3 row">
-  <label class="col-sm-2 col-form-label">Cédula: </label>
-  <div class="col-sm-10">
-    <input #cedula="ngModel"
-      [ngClass]="cedula.invalid && (cedula.dirty || cedula.touched) ? 'is-invalid' : ''" type="text"
-      name="cedula" class="form-control" required [(ngModel)]="detallePacienteDTO.cedula" />
-  </div>
-</div>
-
-<div class="mb-3 row">
-  <label class="col-sm-2 col-form-label">Nombre: </label>
-  <div class="col-sm-10">
-    <input #nombre="ngModel"
-      [ngClass]="nombre.invalid && (nombre.dirty || nombre.touched) ? 'is-invalid' : ''" type="text"
-      name="nombre" class="form-control" required [(ngModel)]="detallePacienteDTO.nombre" />
-  </div>
-</div>
-
-<div class="mb-3 row">
-  <label class="col-sm-2 col-form-label">Foto: </label>
-  <div class="col-sm-10">
-    <input type="file" name="urlFoto" class="form-control" required (change)="onFileChange($event)" />
-  </div>
-</div>
-
-<div class="mb-3 row">
-  <label class="col-sm-2 col-form-label">Ciudad: </label>
-  <div class="col-sm-10">
-    <select name="ciudad" required class="form-select" [(ngModel)]="detallePacienteDTO.ciudad">
-      <option value="" selected>Seleccione una ciudad</option>
-      <option [value]="item" *ngFor="let item of ciudades; index as i">{{item}}</option>
-    </select>
-  </div>
-</div>
-
-<div class="alert alert-danger" role="alert" *ngIf="!sonIguales()">Las contraseñas no coinciden</div>
-
-<button class="btn btn-primary" type="submit" [disabled]="f.invalid || !sonIguales()">
-  <i class="fa-solid fa-circle-plus me-1"></i>Registrarse
-</button>
-    </form>
-  </div>
-</div>
-
-
+</main>
 
 <!-- Pie de página -->
-<div class="container">
-  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-    <div class="col-md-4 d-flex align-items-center">
-      <span class="mb-3 mb-md-0 text-muted">&copy; 2023 Universidad del Quindío</span>
-    </div>
-  </footer>
-</div>
+<footer class="bg-light border-top py-3 mt-4">
+  <div class="container">
+    <span class="text-muted">&copy; 2023 Universidad del Quindío</span>
+  </div>
+</footer>

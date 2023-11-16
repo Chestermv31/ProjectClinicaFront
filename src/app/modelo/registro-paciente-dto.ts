@@ -1,3 +1,4 @@
+
 export class DetallePacienteDTO {
     cedula:string = "15155";
     nombre:string = "santiago";
@@ -14,4 +15,3 @@ export class DetallePacienteDTO {
     }
 
   
-

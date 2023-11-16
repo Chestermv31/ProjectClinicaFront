@@ -1,40 +1,30 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-
-
+import { Alerta } from 'src/app/modelo/alerta';
+import { LoginDTO } from 'src/app/modelo/LoginDTO';
+import { AuthService } from 'src/app/servicios/auth.service';
+import { TokenService } from 'src/app/servicios/token.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
-
 })
-
 export class LoginComponent {
-  loginForm: FormGroup;
-  error = false;
-  
+  loginDTO: LoginDTO;
+  alerta!: Alerta;
 
-  // Datos quemados para el inicio de sesión (correo y contraseña)
-  usuarios = [
-    { email: 'usuario1@example.com', password: '123456' },
-    { email: 'usuario2@example.com', password: 'abcdef' }
-  ];
-
-  constructor(private formBuilder: FormBuilder) {
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    });
+  constructor(private authService: AuthService, private tokenService: TokenService) {
+    this.loginDTO = new LoginDTO();
   }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      const email = this.loginForm.get('email');
-      const password = this.loginForm.get('password');
-
-     
-    }
+  public login() {
+    this.authService.login(this.loginDTO).subscribe({
+      next: data => {
+        this.tokenService.login(data.respuesta.token);
+      },
+      error: error => {
+        this.alerta = { mensaje: error.error.respuesta, tipo: "danger" };
+      }
+    });
   }
 }

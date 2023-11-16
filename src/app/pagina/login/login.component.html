@@ -1,26 +1,23 @@
-<div class="container mt-5">
-    <div class="row">
-      <div class="col-md-6 offset-md-3">
-        <div class="card">
-          <div class="card-header">
-            <h3>Iniciar sesión</h3>
-          </div>
-          <div class="card-body">
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-              <div class="mb-3">
-                <label for="email" class="form-label">Correo electrónico</label>
-                <input type="email" class="form-control" id="email" formControlName="email" required>
-              </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="password" formControlName="password" required>
-              </div>
-              <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-            </form>
-            <div *ngIf="error" class="alert alert-danger mt-3">Credenciales incorrectas</div>
-          </div>
-        </div>
+<div class="card">
+  <form class="row g-3" #f="ngForm" (ngSubmit)="login()">
+    <div class="container">
+      <h2 class="h2 text-center">Iniciar Sesión</h2>
+    </div>
+    <div class="container">
+      <label for="inputUsuario" class="visually-hidden">Usuario</label>
+      <input type="text" class="form-control" id="inputUsuario" placeholder="Usuario" name="correo" [(ngModel)]="loginDTO.correo" required>
+    </div>
+    <div class="container">
+      <label for="inputPassword2" class="visually-hidden">Contraseña</label>
+      <input type="password" class="form-control" id="inputPassword2" placeholder="Contraseña" name="password" [(ngModel)]="loginDTO.password" required>
+    </div>
+    <div class="container text-center"> <!-- Agregado text-center aquí -->
+      <p><a href="#" class="link-underline-primary">¿Olvidó su contraseña?</a></p>
+      <button type="submit" class="btn btn-primary mb-5">Iniciar Sesión</button>
+      <div class="register-section">
+        <label>¿Aún no tienes cuenta?</label>
+        <p><a href="#" class="link-underline-primary">Crear Cuenta</a></p>
       </div>
     </div>
-  </div>
-  
+  </form>
+</div>

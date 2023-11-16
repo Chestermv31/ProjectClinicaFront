@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MedicoService } from 'src/app/servicios/medicos.service';
+import { MedicosService } from 'src/app/servicios/medicos.service'
 import { MedicoDTO } from 'src/app/modelo/MedicoDTO';
 
 @Component({
@@ -10,7 +10,7 @@ import { MedicoDTO } from 'src/app/modelo/MedicoDTO';
 export class GestionMedicosComponent implements OnInit {
   medicos: MedicoDTO[] | undefined;
 
-  constructor(private medicoService: MedicoService) {}
+  constructor(private medicoService: MedicosService) {}
 
   ngOnInit() {
     this.medicos = this.medicoService.getMedicos();

@@ -1,70 +1,143 @@
-<form #f="ngForm" (ngSubmit)="registrar()">
-    <div>
-        <label>Cédula: </label>
-        <input type="text" name="cedula" [(ngModel)]="detatallePacienteDTO.cedula" />
-    </div>
-    <div>
-        <label>Nombre: </label>
-        <input type="text" name="nombre" [(ngModel)]="detatallePacienteDTO.nombre" />
-    </div>
-    <div>
-        <label>Teléfono: </label>
-        <input type="text" name="telefono" [(ngModel)]="detatallePacienteDTO.telefono" />
-    </div>
-    <div>
-        <label>Foto: </label>
-        <input type="text" name="urlFoto" [(ngModel)]="detatallePacienteDTO.urlFoto" />
-    </div>
-    <div>
-        <label >Foto: </label>
-        <input type="file" required />
-    </div>
-    <div>
-            <label >Imagen: </label>
-            <input type="file" (change)="onFileChange($event)" />
-    </div>
-    <div>
-        <label >Ciudad: </label>
-        <select >
-        <option value="0" selected >Seleccione una ciudad</option>
-        <option value="1" >Armenia</option>
-        <option value="2" >Calarcá</option>
-        <option value="3" >Pereira</option>
-        <option value="4" >Manizales</option>
-        <option value="5" >Medellín</option>
-        </select>
-    </div>
-    <div>
-        <label>Fecha de nacimiento: </label>
-        <input type="date" name="fechaNacimiento"
-        [(ngModel)]="detatallePacienteDTO.fechaNacimiento" />
-    </div>
-    <div>
-        <label>Alergias: </label>
-        <input type="text" name="alergias" [(ngModel)]="detatallePacienteDTO.alergias" />
-    </div>
-    <div>
-        <label>EPS: </label>
-        <input type="text" name="eps" [(ngModel)]="detatallePacienteDTO.eps" />
-    </div>
-    <div>
-        <label>Tipo de sangre: </label>
-        <input type="text" name="tipoSangre" [(ngModel)]="detatallePacienteDTO.tipoSangre" />
-    </div>
-    <div>
-        <label>Correo electrónico: </label>
-        <input type="email" name="correo" [(ngModel)]="detatallePacienteDTO.correo" />
-    </div>
-    <div>
-        <label>Contraseña: </label>
-        <input type="password" name="password" [(ngModel)]="detatallePacienteDTO.password" />
-    </div>
-        <button type="submit" [disabled]="f.invalid || !sonIguales()" >Registrarse</button>
+<div class="card">
+  <div class="card-header ps-5 pt-4 pb-4">
+    <h5 class="mb-0"><i class="fa-solid fa-user-plus me-3"></i>Registro de un nuevo paciente</h5>
+  </div>
+  <div class="card-body p-5">
+    <form #f="ngForm">
+      <div class="mb-3 row">
+        <label class="col-sm-10 col-form-label">Cédula:</label>
+        <div class="col-sm-10">
+          <input #cedula="ngModel" [ngClass]="{'form-control': true, 'is-invalid': cedula.invalid && (cedula.dirty || cedula.touched)}"
+            type="text" name="cedula" required [(ngModel)]="registroPacienteDTO.cedula" />
+          <div class="invalid-feedback" *ngIf="cedula.invalid && (cedula.dirty || cedula.touched)">
+            Ingresa una cédula válida.
+          </div>
+        </div>
+      </div>
 
-        <div>
-        <label >Repetir contraseña: </label>
-        <input type="password" name="confirmaPassword"
-        [(ngModel)]="detatallePacienteDTO.confirmaPassword" required />
-        <p *ngIf="!sonIguales()" >Las contraseñas no coinciden</p>           
+      <div class="mb-3 row">
+        <label class="col-sm-10 col-form-label">Nombre:</label>
+        <div class="col-sm-10">
+          <input #nombre="ngModel" [ngClass]="{'form-control': true, 'is-invalid': nombre.invalid && (nombre.dirty || nombre.touched)}"
+            type="text" name="nombre" required [(ngModel)]="registroPacienteDTO.nombre" />
+          <div class="invalid-feedback" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+            Ingresa un nombre válido.
+          </div>
+        </div>
+      </div>
+  
+        <div class="mb-3 row">
+          <label class="col-sm-10 col-form-label">Teléfono: </label>
+          <div class="col-sm-10">
+            <input #telefono="ngModel"
+              [ngClass]="telefono.invalid && (telefono.dirty || telefono.touched) ? 'is-invalid' : ''" type="text"
+              name="telefono" class="form-control" required [(ngModel)]="registroPacienteDTO.telefono" />
+          </div>
+        </div>
+        
+        <div class="mb-3 row">
+          <label class="container text-center">Foto: </label>
+          <div class="col-sm-8">
+          <input type="file" class="form-control" name="foto" (change)="onFileChange($event)" />
+          </div>
+          <div class="col-sm-2" >
+          <button type="submit" [disabled]="archivos == null" class="btn btn-primary"
+          (click)="subirImagen()" >
+          <i class="fa-solid fa-cloud-arrow-up me-2"></i>Subir Foto
+          </button>
+          </div>
+          
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-10 col-form-label">Ciudad: </label>
+          <div class="col-sm-10">
+            <select name="ciudad" required class="form-select" [(ngModel)]="registroPacienteDTO.ciudad">
+              <option value="" selected>Seleccione una ciudad</option>
+              <option [value]="item" *ngFor="let item of ciudades; index as i">{{item}}</option>
+            </select>
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label class="col-sm-10 col-form-label">Fecha de nacimiento: </label>
+          <div class="col-sm-10">
+            <input #fechaNacimiento="ngModel"
+              [ngClass]="fechaNacimiento.invalid && (fechaNacimiento.dirty || fechaNacimiento.touched) ? 'is-invalid' : ''"
+              type="date" name="fechaNacimiento" class="form-control" required
+              [(ngModel)]="registroPacienteDTO.fechaNacimiento" />
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label class="col-sm-10 col-form-label">Alergias: </label>
+          <div class="col-sm-10">
+            <input #alergias="ngModel"
+              [ngClass]="alergias.invalid && (alergias.dirty || alergias.touched) ? 'is-invalid' : ''" type="text"
+              name="alergias" class="form-control" required [(ngModel)]="registroPacienteDTO.alergias" />
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label class="col-sm-10 col-form-label">EPS: </label>
+          <div class="col-sm-10">
+            <select name="eps" required class="form-select" [(ngModel)]="registroPacienteDTO.eps">
+              <option value="" selected>Seleccione una eps</option>
+              <option [value]="item" *ngFor="let item of eps; index as i"> {{ item }} </option>
+            </select>
+          </div>
+  
+        </div>
+  
+        <div class="mb-3 row">
+          <label class="col-sm-10 col-form-label">Tipo de sangre: </label>
+          <div class="col-sm-10">
+            <select name="tipoSangre" required class="form-select" [(ngModel)]="registroPacienteDTO.tipoSangre">
+              <option value="" selected>Seleccione un tipo de sangre</option>
+              <option [value]="item" *ngFor="let item of tiposSangre; index as i"> {{ item }} </option>
+            </select>
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label class="col-sm-10 col-form-label">Correo electrónico: </label>
+          <div class="col-sm-10">
+            <input #correo="ngModel" [ngClass]="correo.invalid && (correo.dirty || correo.touched) ? 'is-invalid' : ''"
+              type="email" name="correo" class="form-control" required email [(ngModel)]="registroPacienteDTO.correo" />
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label class="col-sm-10 col-form-label">Contraseña:</label>
+          <div class="col-sm-10">
+            <input #password="ngModel" [ngClass]="{'form-control': true, 'is-invalid': password.invalid && (password.dirty || password.touched)}"
+              type="password" name="password" required [(ngModel)]="registroPacienteDTO.password" />
+            <div class="invalid-feedback" *ngIf="password.invalid && (password.dirty || password.touched)">
+              Ingresa una contraseña válida.
+            </div>
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label class="col-sm-10 col-form-label">Repetir contraseña:</label>
+          <div class="col-sm-10">
+            <input #confirmaPassword="ngModel" [ngClass]="{'form-control': true, 'is-invalid': confirmaPassword.invalid && (confirmaPassword.dirty || confirmaPassword.touched)}"
+              type="password" name="confirmaPassword" required [(ngModel)]="registroPacienteDTO.confirmaPassword" />
+            <div class="invalid-feedback" *ngIf="confirmaPassword.invalid && (confirmaPassword.dirty || confirmaPassword.touched)">
+              Las contraseñas no coinciden.
+            </div>
+          </div>
+        </div>
+  
+        <p *ngIf="!sonIguales()" class="text-danger">Las contraseñas no coinciden</p>
+        <div *ngIf="!sonIguales()" class="alert alert-danger" role="alert">Las contraseñas no coinciden</div>
+  
+        <div class="mb-3 row">
+          <div class="container text-center">
+            <button (click)="registrar()" class="btn btn-primary" type="submit" [disabled]="f.invalid || !sonIguales()">
+              <i class="fa-solid fa-circle-plus me-1"></i>Registrarse
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
-    </form>
+  </div>
