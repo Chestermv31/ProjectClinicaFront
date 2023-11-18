@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RegistroPacienteDTO } from "../../modelo/RegistroPacienteDTO";
+import { PacienteDTO } from "../../modelo/PacienteDTO";
 import { ClinicaService } from 'src/app/servicios/clinica.service';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { Alerta } from 'src/app/modelo/alerta';
@@ -13,7 +13,7 @@ import { ImagenService } from 'src/app/servicios/imagen.service';
 
 export class RegistroComponent {
 
-  registroPacienteDTO: RegistroPacienteDTO;
+  registroPacienteDTO: PacienteDTO;
   ciudades: string[];
   tiposSangre: String[];
   eps: String[];
@@ -21,7 +21,7 @@ export class RegistroComponent {
   alerta!: Alerta;
 
   constructor(private authService: AuthService, private clinicaService: ClinicaService, private imagenService: ImagenService) {
-    this.registroPacienteDTO = new RegistroPacienteDTO();
+    this.registroPacienteDTO = new PacienteDTO();
 
     this.ciudades = [];
     this.cargarCiudades();
@@ -48,6 +48,7 @@ export class RegistroComponent {
     } else {
       this.alerta = { mensaje: "Debe subir una imagen", tipo: "danger" };
     }
+    console.log(this.registroPacienteDTO);
   }
 
   private cargarCiudades() {

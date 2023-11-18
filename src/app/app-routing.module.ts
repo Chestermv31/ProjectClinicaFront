@@ -25,9 +25,8 @@ const routes: Routes = [
 { path: "gestion-medicos", component: GestionMedicosComponent },
 { path: "login", component: LoginComponent, canActivate: [LoginGuard] },
 { path: "registro", component: RegistroComponent, canActivate: [LoginGuard] },
-{ path: "admin/gestionar_ciudades", component: GestionCitasComponent, canActivate:
- [UsuarioGuard], data: { expectedRole: ['ADMIN'] } },
- { path: "**", pathMatch: "full", redirectTo: "" },
+{ path: "admin/gestionar_ciudades", component: GestionCitasComponent, canActivate:[UsuarioGuard], data: { expectedRole: ['ADMIN'] } },
+{ path: "**", pathMatch: "full", redirectTo: "" },
  
 
 

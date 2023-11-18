@@ -3,29 +3,28 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LoginDTO } from 'src/app/modelo/LoginDTO';
 import { MensajeDTO } from 'src/app/modelo/MensajeDTO';
-import { TokenDTO} from 'src/app/modelo/TokenDTO';
-import { RegistroPacienteDTO } from 'src/app/modelo/RegistroPacienteDTO';
-import{RegistroMedicoDTO} from 'src/app/modelo/RegistroMedicoDTO'
-
-
-
+import { JwtDto } from '../modelo/jwt-dto';
+import { PacienteDTO } from 'src/app/modelo/PacienteDTO';
+import { RegistroMedicoDTO } from 'src/app/modelo/RegistroMedicoDTO';
 
 @Injectable({
-providedIn: 'root'
+  providedIn: 'root'
 })
 
 export class AuthService {
-  [x: string]: any;
-private authURL = "http://localhost:8080/api/auth";
-
-constructor(private http:HttpClient) { }
-
-public registrarPaciente(paciente:RegistroPacienteDTO):Observable<MensajeDTO>{
-  return this.http.post<MensajeDTO>(`${this.authURL}/registrar-paciente`, paciente);
+  refresh(jwt: JwtDto) {
+    throw new Error('Method not implemented.');
   }
+  private authURL = "http://localhost:8080/api/auth";
 
-  
-  public registrar(paciente: RegistroPacienteDTO): Observable<MensajeDTO> {
+  constructor(private http: HttpClient) { }
+
+  // public registrarPaciente(paciente:RegistroPacienteDTO):Observable<MensajeDTO>{
+  //   return this.http.post<MensajeDTO>(`${this.authURL}/registrar-paciente`, paciente);
+  //   }
+
+
+  public registrar(paciente: PacienteDTO): Observable<MensajeDTO> {
     return this.http.post<MensajeDTO>(`${this.authURL}/registrar`, paciente);
   }
 
@@ -34,10 +33,8 @@ public registrarPaciente(paciente:RegistroPacienteDTO):Observable<MensajeDTO>{
   }
 
 
-  public login(loginDTO:LoginDTO):Observable<MensajeDTO>{
+  public login(loginDTO: LoginDTO): Observable<MensajeDTO> {
     return this.http.post<MensajeDTO>(`${this.authURL}/login`, loginDTO);
-    }
-
-
+  }
 
 }

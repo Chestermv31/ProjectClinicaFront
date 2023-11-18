@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-
 import { Alerta } from 'src/app/modelo/alerta';
 
 @Component({
