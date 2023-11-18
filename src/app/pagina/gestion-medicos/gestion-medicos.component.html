@@ -1,16 +1,21 @@
 
 <div class="container">
-  <h2>Listado de Médicos</h2>
-  
-  <div *ngIf="!medicos || medicos.length === 0" class="alert alert-info">
-    No hay médicos disponibles.
+  <h2>Gestión de Médicos</h2>
+
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Opciones
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="/registro-medicos">Registro Médicos</a>
+    </div>
   </div>
 
   <div *ngFor="let medico of medicos" class="card mb-3">
     <div class="card-header">
       <h5>{{ medico.nombre }} - {{ medico.especialidad }}</h5>
     </div>
-    
+
     <div class="card-body">
       <ul class="list-group">
         <li class="list-group-item">

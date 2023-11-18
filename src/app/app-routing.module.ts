@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { InicioComponent } from './pagina/inicio/inicio.component';
 import { LoginComponent } from './pagina/login/login.component';
 import { RegistroComponent } from './pagina/registro/registro.component';
-import {GestionPqrsComponent} from 'src/app/gestion-pqrs/gestion-pqrs.component';
+import { GestionPqrsComponent } from 'src/app/gestion-pqrs/gestion-pqrs.component';
 import { CrearPqrsComponent } from './pagina/crear-pqrs/crear-pqrs.component';
 import { DetallePqrsComponent } from './pagina/detalle-pqrs/detalle-pqrs.component';
 import { GestionCitasComponent } from './pagina/gestion-citas/gestion-citas.component';
@@ -11,6 +11,7 @@ import { CrearCitaComponent } from './pagina/crear-citas/crear-cita.component';
 import { GestionMedicosComponent } from './pagina/gestion-medicos/gestion-medicos.component';
 import { LoginGuard } from './guards/login.guard';
 import { UsuarioGuard } from './guards/usuario.guard';
+import {RegistroMedicosComponent} from "./pagina/registro-medicos/registro-medicos.component";
 
 
 const routes: Routes = [
@@ -25,9 +26,10 @@ const routes: Routes = [
 { path: "gestion-medicos", component: GestionMedicosComponent },
 { path: "login", component: LoginComponent, canActivate: [LoginGuard] },
 { path: "registro", component: RegistroComponent, canActivate: [LoginGuard] },
-{ path: "admin/gestionar_ciudades", component: GestionCitasComponent, canActivate:[UsuarioGuard], data: { expectedRole: ['ADMIN'] } },
-{ path: "**", pathMatch: "full", redirectTo: "" },
- 
+{path: "api/admins/crearMedico", component: RegistroMedicosComponent, canActivate:[UsuarioGuard]},
+{ path: "api/admins/gestion_ciudades", component: GestionCitasComponent, canActivate:[UsuarioGuard], data: { expectedRole: ['admin'] }},
+    { path: "**", pathMatch: "full", redirectTo: "" },
+
 
 
 ];

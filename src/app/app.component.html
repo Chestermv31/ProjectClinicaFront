@@ -1,48 +1,64 @@
 <!-- Encabezado -->
 <header class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
       <i class="fas fa-stethoscope"></i>
       <span class="ms-2">{{ title }}</span>
     </a>
+    <div *ngIf="!isLogged; then nologged else logged"></div>
+    <ng-template #nologged>
+      <div class="text-end">
+        <button type="button" style="margin-right: 20px" routerLink="/login" class="btn btn-outline-light
+    me-2">Login</button>
+        <button type="button" routerLink="/registro" class="btn btn-warning">Sign-up</button>
+      </div>
+    </ng-template>
 
     <!-- Botón para colapsar en pantallas pequeñas -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <ng-template #logged>
     <!-- Elementos del menú -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" href="#">Inicio</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/gestion-medicos">Gestión Médicos</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            GestiónMedico
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/crearMedico">Registrar Medico</a></li>
+            <li><a class="dropdown-item" href="/registro">Listar Medico</a></li>
+            <li><a class="dropdown-item" href="#">Historial Medico</a></li>
+            <li><a class="dropdown-item" href="#">Eliminar</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/gestion-pqrs">Gestión PQRS</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/gestion-citas">Gestión Citas</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            GestiónPQRS
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Crear PQRS</a></li>
+            <li><a class="dropdown-item" href="#">Editar PQRS</a></li>
+            <li><a class="dropdown-item" href="#">Listar PQRS</a></li>
+            <li><a class="dropdown-item" href="#">Historial PQRS</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
         </li>
       </ul>
-
-      <!-- Botones de autenticación -->
-      <div *ngIf="!isLogged; then nologged else logged"></div>
-      <ng-template #nologged>
-        <div class="text-algin.right">
-          <button type="button" routerLink="/login" class="btn btn-outline-light me-2">Login</button>
-          <button type="button" routerLink="/registro" class="btn btn-warning">Sign-up</button>
-        </div>
-      </ng-template>
-      <ng-template #logged>
-        <div class="text-end">
-          <label class="me-3">Hola {{ username }}</label>
-          <button type="button" (click)="logout()" class="btn btn-warning">Logout</button>
-        </div>
-      </ng-template>
+      <div class="text-end">
+        <label class="me-3">Hola {{ username }}</label>
+        <button type="button" (click)="logout()" class="btn btn-warning">Logout</button>
+      </div>
     </div>
+    </ng-template>
   </div>
 </header>
 
